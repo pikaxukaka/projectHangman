@@ -8,7 +8,7 @@ namespace projektWisielec
     /*
     TODO:
     - "Bot" btn: random word from preset
-    - "2 Players" btn: new dialog with propt to enter word
+    - "2 Players" btn: new dialog with prompt to enter word
     - "reset" btn: reset game
     - "GuessesTextBlock" - show all guesses
     - Change image of hangman depending on lives
