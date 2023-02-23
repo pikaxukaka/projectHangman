@@ -4,6 +4,18 @@ using System.Windows;
 
 namespace projektWisielec
 {
+
+    /*
+    TODO:
+    - "Bot" btn: random word from preset
+    - "2 Players" btn: new dialog with propt to enter word
+    - "reset" btn: reset game
+    - "GuessesTextBlock" - show all guesses
+    - Change image of hangman depending on lives
+    - Add more words to preset
+    - Add images of hangman
+
+    */
     public partial class MainWindow : Window
     {
         private List<string> words = new List<string>()
@@ -25,14 +37,12 @@ namespace projektWisielec
         public MainWindow()
         {
             InitializeComponent();
-            
+            StartGame("abstrakcja");
         }
-
+        
         private void StartGame(string word)
         {
-            Random random = new Random();
-            currentWord = words[random.Next(words.Count)];
-            WordTextBlock.Text = new string('_', currentWord.Length);
+            WordTextBlock.Text = new string('_', word.Length);    
             correctLetters.Clear();
             lives = 6;
             UpdateResultTextBlock();

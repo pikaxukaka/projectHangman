@@ -5,55 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projektWisielec"
         mc:Ignorable="d"
-        Title="Wisielec" Height="350" Width="640">
-    <Grid Margin="16">
+        Title="Wisielec" Height="480" Width="640">
+    <Grid Margin="8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition MinWidth="72" Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="1"/>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="56"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Button Grid.Column="0" Grid.Row="0">Bot</Button>
-        <Button Grid.Column="0" Grid.Row="1">2 Players</Button>
-        <Separator Grid.Column="0" Grid.Row="2"/>
-        <Button Grid.Column="0" Grid.Row="3">Reset</Button>
+        <Button Grid.Column="0" Grid.Row="0" Margin="8" Padding="12,0">Bot</Button>
+        <Button Grid.Column="0" Grid.Row="1" Margin="8" Padding="12,0">2 Players</Button>
+        <Separator Grid.Column="0" Grid.Row="2" Margin="8"/>
 
-        <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
-        <Grid Grid.Row="0" Grid.Column="1">
+        <StackPanel Grid.Column="0" Grid.Row="3">
+            <Button Margin="8" Height="40" Padding="12,0">Reset</Button>
+        </StackPanel>
+
+        <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" Text="__________" FontStyle="Normal" FontWeight="Normal"/>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            
-            <TextBox x:Name="InputTextBox" Grid.Row="0" Grid.Column="0"/>
-            <Button x:Name="GuessButton" Content="Check" Click="GuessButton_Click" Grid.Row="0" Grid.Column="1"/>
-        </Grid>
-        <Separator Grid.Column="1" Grid.Row="2"/>
 
-        <Grid Grid.Row="3" Grid.Column="1">
+            <TextBox x:Name="InputTextBox" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Padding="11" Height="40"/>
+            <Button x:Name="GuessButton" Content="Check" MinWidth="72" Click="GuessButton_Click" Grid.Row="0" Grid.Column="1" Padding="12,0" />
+        </Grid>
+
+        <Separator Grid.Column="1" Grid.Row="2" Margin="8"/>
+
+        <Grid Grid.Row="3" Grid.Column="1" Margin="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="LivesTextBlock" Content="" Grid.Column="0" Grid.Row="0"/>
-            <Label Content="" Grid.Column="1" Grid.Row="0"/>
-        </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid Grid.Row="4" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image />
-            <TextBlock x:Name="GuessesTextBLock" HorizontalAlignment="Stretch" Grid.Column="1"/>
+            <Label Content="Lives: 0" x:Name="LivesTextBlock" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Content="Guesses:" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+            <Image Grid.Column="0" Grid.Row="1" />
+            <TextBlock x:Name="GuessesTextBLock" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
 
         </Grid>
 
