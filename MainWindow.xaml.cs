@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 
 namespace projektWisielec
@@ -9,10 +10,10 @@ namespace projektWisielec
     TODO:
     - "Bot" btn: random word from preset
     - "2 Players" btn: new dialog with prompt to enter word
-    - "reset" btn: reset game
+    - "reset" btn: reset game - DONE
     - "GuessesTextBlock" - show all guesses
     - Change image of hangman depending on lives
-    - Add more words to preset
+    - Add more words to preset - DONE
     - Add images of hangman
 
     */
@@ -32,12 +33,29 @@ namespace projektWisielec
 
         private string currentWord;
         private List<char> correctLetters = new List<char>();
-        private int lives = 6;
+        private int lives = 10;
 
         public MainWindow()
         {
             InitializeComponent();
             StartGame("abstrakcja");
+
+            try
+            {
+                string fileName = "words.txt";
+                using (StreamReader sr = new StreamReader(fileName))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        words.Add(line.Trim());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"File read error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         
         private void StartGame(string word)
@@ -45,7 +63,7 @@ namespace projektWisielec
             currentWord = word;
             WordTextBlock.Text = new string('_', currentWord.Length);    
             correctLetters.Clear();
-            lives = 6;
+            lives = 10;
             UpdateResultTextBlock();
         }
 
@@ -67,6 +85,7 @@ namespace projektWisielec
                     if (IsGameWon())
                     {
                         ShowMessage("You won!");
+                        Restart();
                     }
                 }
                 else
@@ -76,6 +95,7 @@ namespace projektWisielec
                     if (lives == 0)
                     {
                         ShowMessage("You lost!");
+                        Restart();
                     }
                 }
             }
@@ -85,6 +105,7 @@ namespace projektWisielec
                 {
                     WordTextBlock.Text = currentWord;
                     ShowMessage("You won!");
+                    Restart();
                 }
                 else
                 {
@@ -93,6 +114,7 @@ namespace projektWisielec
                     if (lives == 0)
                     {
                         ShowMessage("You lost!");
+                        Restart();
                     }
                 }
             }
@@ -141,11 +163,16 @@ namespace projektWisielec
 
         private void RestartClick(object sender, RoutedEventArgs e)
         {
+            Restart();
+        }
+
+        private void Restart()
+        {
             Random random = new Random();
             currentWord = words[random.Next(words.Count)];
             WordTextBlock.Text = new string('_', currentWord.Length);
             correctLetters.Clear();
-            lives = 6;
+            lives = 10;
             UpdateResultTextBlock();
             InputTextBox.Clear();
         }
