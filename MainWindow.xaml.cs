@@ -68,7 +68,12 @@ namespace projektWisielec
         private void StartGame(string word)
         {
             currentWord = word;
-            WordTextBlock.Text = new string('_', currentWord.Length);    
+
+            WordTextBlock.Text = "";
+            foreach (char letter in currentWord) {
+                WordTextBlock.Text += ((letter == ' ') ? " " : "_") + " ";
+            }
+
             correctLetters.Clear();
             lives = 10;
             UpdateResultTextBlock();
@@ -89,6 +94,7 @@ namespace projektWisielec
                 {
                     correctLetters.Add(input[0]);
                     UpdateWordTextBlock();
+                    
                     if (IsGameWon())
                     {
                         ShowMessage("You won!");
@@ -134,7 +140,7 @@ namespace projektWisielec
             char[] word = new char[currentWord.Length];
             for (int i = 0; i < currentWord.Length; i++)
             {
-                if (correctLetters.Contains(currentWord[i]))
+                if (correctLetters.Contains(currentWord[i]) || currentWord[i] == ' ')
                 {
                     word[i] = currentWord[i];
                 }
@@ -143,14 +149,18 @@ namespace projektWisielec
                     word[i] = '_';
                 }
             }
-            WordTextBlock.Text = new string(word);
+
+            WordTextBlock.Text = "";
+            foreach (char letter in word) {
+                WordTextBlock.Text += ((letter == ' ') ? ' ' : letter) + " ";
+            }
         }
 
         private bool IsGameWon()
         {
             foreach (char c in currentWord)
             {
-                if (!correctLetters.Contains(c))
+                if (!correctLetters.Contains(c) && c != ' ')
                 {
                     return false;
                 }
@@ -175,19 +185,13 @@ namespace projektWisielec
 
         private void Restart()
         {
-            Random random = new Random();
-            currentWord = words[random.Next(words.Count)];
-            WordTextBlock.Text = new string('_', currentWord.Length);
-            correctLetters.Clear();
-            lives = 10;
-            UpdateResultTextBlock();
-            InputTextBox.Clear();
+            StartGame(words[new Random().Next(words.Count)]);
         }
         
         private void InputWord(object sender, RoutedEventArgs e) {
             InputDialog dialog = new InputDialog("Enter word to guess:");
             if (dialog.ShowDialog() == true) {
-                string word = dialog.Result;
+                string word = dialog.Result.Trim().ToLower();
                 StartGame(word);
             }
             else {
