@@ -8,14 +8,22 @@ namespace projektWisielec
 
     /*
     TODO:
+    - Change image of hangman depending on lives
+    - Add images of hangman
+    - "GuessesTextBlock" show all guesses (add each guess to textBlock)
+
+    DONE: 
     - "Bot" btn: random word from preset
     - "2 Players" btn: new dialog with prompt to enter word
-    - "reset" btn: reset game - DONE
-    - "GuessesTextBlock" - show all guesses
-    - Change image of hangman depending on lives
-    - Add more words to preset - DONE
-    - Add images of hangman
-
+      - Input dialog
+    - "reset" btn: reset game
+    - Add more words to preset
+    
+    SUGGESTIONS:
+    - add simple setings like:
+      - *number* of total lives (1-12)
+      - random letter from word each *number* guesses 
+      
     */
     public partial class MainWindow : Window
     {
@@ -177,7 +185,7 @@ namespace projektWisielec
         }
         
         private void InputWord(object sender, RoutedEventArgs e) {
-            InputDialog dialog = new InputDialog("Enter some text:");
+            InputDialog dialog = new InputDialog("Enter word to guess:");
             if (dialog.ShowDialog() == true) {
                 string word = dialog.Result;
                 StartGame(word);
