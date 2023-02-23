@@ -42,7 +42,8 @@ namespace projektWisielec
         
         private void StartGame(string word)
         {
-            WordTextBlock.Text = new string('_', word.Length);    
+            currentWord = word;
+            WordTextBlock.Text = new string('_', currentWord.Length);    
             correctLetters.Clear();
             lives = 6;
             UpdateResultTextBlock();
