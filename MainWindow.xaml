@@ -5,16 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projektWisielec"
         mc:Ignorable="d"
-        Title="Wisielec" Height="350" Width="525">
-    <Grid>
+        Title="Wisielec" Height="350" Width="640">
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="WordTextBlock" Grid.Row="0" FontSize="20" Margin="10" HorizontalAlignment="Center"/>
-        <TextBox x:Name="InputTextBox" Grid.Row="1" Margin="10"/>
-        <Button x:Name="GuessButton" Grid.Row="1" Margin="150, 100, 150, 50" Content="Check" Click="GuessButton_Click"/>
-        <TextBlock x:Name="ResultTextBlock" Grid.Row="2" FontSize="25" Margin="10"  HorizontalAlignment="Center"/>
+
+        <Button Grid.Column="0" Grid.Row="0">Bot</Button>
+        <Button Grid.Column="0" Grid.Row="1">2 Players</Button>
+        <Separator Grid.Column="0" Grid.Row="2"/>
+        <Button Grid.Column="0" Grid.Row="3">Reset</Button>
+
+        <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1"/>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBox x:Name="InputTextBox" Grid.Row="0" Grid.Column="0"/>
+            <Button x:Name="GuessButton" Content="Check" Click="GuessButton_Click" Grid.Row="0" Grid.Column="1"/>
+        </Grid>
+        <Separator Grid.Column="1" Grid.Row="2"/>
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="LivesTextBlock" Content="" Grid.Column="0" Grid.Row="0"/>
+            <Label Content="" Grid.Column="1" Grid.Row="0"/>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image />
+            <TextBlock x:Name="GuessesTextBLock" HorizontalAlignment="Stretch" Grid.Column="1"/>
+
+        </Grid>
+
     </Grid>
+
 </Window>

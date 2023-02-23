@@ -25,10 +25,10 @@ namespace projektWisielec
         public MainWindow()
         {
             InitializeComponent();
-            StartGame();
+            
         }
 
-        private void StartGame()
+        private void StartGame(string word)
         {
             Random random = new Random();
             currentWord = words[random.Next(words.Count)];
@@ -56,7 +56,6 @@ namespace projektWisielec
                     if (IsGameWon())
                     {
                         ShowMessage("You won!");
-                        StartGame();
                     }
                 }
                 else
@@ -66,7 +65,6 @@ namespace projektWisielec
                     if (lives == 0)
                     {
                         ShowMessage("You lost!");
-                        StartGame();
                     }
                 }
             }
@@ -76,7 +74,6 @@ namespace projektWisielec
                 {
                     WordTextBlock.Text = currentWord;
                     ShowMessage("You won!");
-                    StartGame();
                 }
                 else
                 {
@@ -85,7 +82,6 @@ namespace projektWisielec
                     if (lives == 0)
                     {
                         ShowMessage("You lost!");
-                        StartGame();
                     }
                 }
             }
@@ -124,7 +120,7 @@ namespace projektWisielec
 
         private void UpdateResultTextBlock()
         {
-            ResultTextBlock.Text = $"Lives: {lives}";
+            LivesTextBlock.Content = $"Lives: {lives}";
         }
 
         private void ShowMessage(string message)
