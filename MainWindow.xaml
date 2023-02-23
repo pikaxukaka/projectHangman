@@ -27,7 +27,7 @@
             <Button Margin="8" Height="40" Padding="12,0" Click="RestartClick">Reset</Button>
         </StackPanel>
 
-        <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" FontStyle="Normal" FontWeight="Normal"><Run/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" FontStyle="Normal" FontWeight="Normal" FontSize="24"><Run/><LineBreak/><Run/></TextBlock>
         <Grid Grid.Row="1" Grid.Column="1" Margin="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

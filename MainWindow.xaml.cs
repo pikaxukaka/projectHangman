@@ -101,7 +101,7 @@ namespace projektWisielec
                     UpdateResultTextBlock();
                     if (lives == 0)
                     {
-                        ShowMessage("You lost!");
+                        ShowMessage("You lost!\nWord: " + currentWord);
                         Restart();
                     }
                 }
@@ -120,7 +120,7 @@ namespace projektWisielec
                     UpdateResultTextBlock();
                     if (lives == 0)
                     {
-                        ShowMessage("You lost!");
+                        ShowMessage("You lost!\nWord: " + currentWord);
                         Restart();
                     }
                 }
