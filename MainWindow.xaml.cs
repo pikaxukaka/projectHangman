@@ -138,5 +138,16 @@ namespace projektWisielec
         {
             MessageBox.Show(message, "Game Over", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        private void RestartClick(object sender, RoutedEventArgs e)
+        {
+            Random random = new Random();
+            currentWord = words[random.Next(words.Count)];
+            WordTextBlock.Text = new string('_', currentWord.Length);
+            correctLetters.Clear();
+            lives = 6;
+            UpdateResultTextBlock();
+            InputTextBox.Clear();
+        }
     }
 }

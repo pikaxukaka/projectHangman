@@ -24,7 +24,7 @@
         <Separator Grid.Column="0" Grid.Row="2" Margin="8"/>
 
         <StackPanel Grid.Column="0" Grid.Row="3">
-            <Button Margin="8" Height="40" Padding="12,0">Reset</Button>
+            <Button Margin="8" Height="40" Padding="12,0" Click="RestartClick">Reset</Button>
         </StackPanel>
 
         <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" Text="__________" FontStyle="Normal" FontWeight="Normal"/>
