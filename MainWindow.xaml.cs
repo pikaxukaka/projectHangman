@@ -38,7 +38,6 @@ namespace projektWisielec
         public MainWindow()
         {
             InitializeComponent();
-            StartGame("abstrakcja");
 
             try
             {
@@ -175,6 +174,22 @@ namespace projektWisielec
             lives = 10;
             UpdateResultTextBlock();
             InputTextBox.Clear();
+        }
+        
+        private void InputWord(object sender, RoutedEventArgs e) {
+            InputDialog dialog = new InputDialog("Enter some text:");
+            if (dialog.ShowDialog() == true) {
+                string word = dialog.Result;
+                StartGame(word);
+            }
+            else {
+                MessageBox.Show("You didn't enter any text!\nGuess: random word", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                RandomWord(sender, e);
+            }
+        }
+
+        private void RandomWord(object sender, RoutedEventArgs e) {
+            StartGame(words[new Random().Next(words.Count)]);
         }
     }
 }
