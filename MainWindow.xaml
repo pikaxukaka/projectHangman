@@ -8,26 +8,39 @@
         Title="Wisielec" Height="480" Width="640">
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="72" Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition MinWidth="72" Width="auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="56"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="56" />
+            <RowDefinition Height="56" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Button Grid.Column="0" Grid.Row="0" Margin="8" Padding="12,0" Click="RandomWord">Random</Button>
         <Button Grid.Column="0" Grid.Row="1" Margin="8" Padding="12,0" Click="InputWord">Input</Button>
-        <Separator Grid.Column="0" Grid.Row="2" Margin="8"/>
+        <Separator Grid.Column="0" Grid.Row="2" Margin="8" />
 
-        <StackPanel Grid.Column="0" Grid.Row="3">
-            <Button Margin="8" Height="40" Padding="12,0" Click="RestartClick">Reset</Button>
+        <StackPanel Grid.Column="0" Grid.Row="3" Margin="8">
+
+            <DockPanel>
+                <Label Content="Lives: " />
+                <TextBox x:Name="TotalLives" Text="0" VerticalAlignment="Center"
+                    HorizontalAlignment="Right" />
+            </DockPanel>
+            <DockPanel>
+                <Label Content="Random letters: " Grid.Row="1" />
+                <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
+                    HorizontalAlignment="Right" />
+            </DockPanel>
+
+
         </StackPanel>
 
-        <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" FontStyle="Normal" FontWeight="Normal" FontSize="24"><Run/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" FontStyle="Normal" FontWeight="Normal" FontSize="24"><Run/><LineBreak/><Run/>
+        </TextBlock>
         <Grid Grid.Row="1" Grid.Column="1" Margin="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -54,10 +67,9 @@
             <Label Content="Lives: 0" x:Name="LivesTextBlock" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Label Content="Guesses:" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-            <Image Grid.Column="0" Grid.Row="1" />
-            <TextBlock x:Name="GuessesTextBlock" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
-
-        </Grid>
+            <Image x:Name="HangmanImage" Grid.Column="0" Grid.Row="1" Source="/assets/lives0.png" />
+            <TextBlock x:Name="GuessesTextBlock"  HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
+          </Grid> 
 
     </Grid>
 

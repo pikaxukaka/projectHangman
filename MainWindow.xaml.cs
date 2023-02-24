@@ -42,11 +42,13 @@ namespace projektWisielec
         private string currentWord;
         private List<char> correctLetters = new List<char>();
         private List<string> guesses = new List<string>();
-        private int lives = 10;
-
+        public int lives { get; private set; } = 11;
+        
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
+
 
             try
             {
@@ -69,20 +71,25 @@ namespace projektWisielec
         private void StartGame(string word)
         {
             currentWord = word;
-
             WordTextBlock.Text = "";
+            int count = 0;
             foreach (char letter in currentWord) {
                 WordTextBlock.Text += ((letter == ' ') ? " " : "_") + " ";
+                if (letter != ' ') count++;
             }
+            WordTextBlock.Text += $" ({count})";
 
             correctLetters.Clear();
             lives = 10;
-            UpdateResultTextBlock();
+            UpdateResults();
         }
 
         private void GuessButton_Click(object sender, RoutedEventArgs e)
         {
             string input = InputTextBox.Text.Trim().ToLower();
+
+            guesses.Add(input);
+            GuessesTextBlock.Text = string.Join(", \n", guesses);
 
             if (string.IsNullOrEmpty(input))
             {
@@ -108,7 +115,7 @@ namespace projektWisielec
                 else
                 {
                     lives--;
-                    UpdateResultTextBlock();
+                    UpdateResults();
                     if (lives == 0)
                     {
                         ShowMessage("You lost!\nWord: " + currentWord);
@@ -127,7 +134,7 @@ namespace projektWisielec
                 else
                 {
                     lives--;
-                    UpdateResultTextBlock();
+                    UpdateResults();
                     if (lives == 0)
                     {
                         ShowMessage("You lost!\nWord: " + currentWord);
@@ -155,9 +162,13 @@ namespace projektWisielec
             }
 
             WordTextBlock.Text = "";
+            int count = 0;
             foreach (char letter in word) {
                 WordTextBlock.Text += ((letter == ' ') ? ' ' : letter) + " ";
+                if (letter == '_') count++;
             }
+            WordTextBlock.Text += $" ({count})";
+
         }
 
         private bool IsGameWon()
@@ -172,9 +183,10 @@ namespace projektWisielec
             return true;
         }
 
-        private void UpdateResultTextBlock()
+        private void UpdateResults()
         {
             LivesTextBlock.Content = $"Lives: {lives}";
+            HangmanImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri($"pack://application:,,,/assets/lives{lives}.png"));
         }
 
         private void ShowMessage(string message)
