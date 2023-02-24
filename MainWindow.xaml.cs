@@ -43,7 +43,6 @@ namespace projektWisielec
         private List<char> correctLetters = new List<char>();
         private List<string> guesses = new List<string>();
         public int lives { get; private set; } = 11;
-
         
         public MainWindow()
         {
@@ -96,6 +95,9 @@ namespace projektWisielec
             {
                 return;
             }
+
+            guesses.Add(input);
+            GuessesTextBlock.Text = string.Join(", \n", guesses);
 
             if (input.Length == 1)
             {

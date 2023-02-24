@@ -69,7 +69,7 @@
 
             <Image x:Name="HangmanImage" Grid.Column="0" Grid.Row="1" Source="/assets/lives0.png" />
             <TextBlock x:Name="GuessesTextBlock"  HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
-        </Grid> 
+          </Grid> 
 
     </Grid>
 
