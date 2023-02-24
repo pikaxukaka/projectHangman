@@ -88,9 +88,6 @@ namespace projektWisielec
         {
             string input = InputTextBox.Text.Trim().ToLower();
 
-            guesses.Add(input);
-            GuessesTextBlock.Text = string.Join(", \n", guesses);
-
             if (string.IsNullOrEmpty(input))
             {
                 return;
