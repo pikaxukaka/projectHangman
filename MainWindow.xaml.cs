@@ -8,9 +8,16 @@ namespace projektWisielec
 
     /*
     TODO:
-    - Change image of hangman depending on lives
-    - Add images of hangman
-    - "GuessesTextBlock" show all guesses (add each guess to textBlock)
+    - add simple setings like:
+      - *number1* of total lives (1-10)
+        - set lives to total lives in the beginning of the game
+      - random letter from word each *number2* guesses 
+        - add input for *number2* (xaml)
+        - add counter to GuessButton_Click()
+          - if counter == *number2*
+            - add random letter (from word) to correctLetters
+            - update WordTextBlock
+            - reset counter
 
     DONE: 
     - "Bot" btn: random word from preset
@@ -18,11 +25,11 @@ namespace projektWisielec
       - Input dialog
     - "reset" btn: reset game
     - Add more words to preset
+    - "GuessesTextBlock" show all guesses (add each guess to textBlock)
+    - Add images of hangman
+    - Change image of hangman depending on lives
     
     SUGGESTIONS:
-    - add simple setings like:
-      - *number* of total lives (1-12)
-      - random letter from word each *number* guesses 
       
     */
     public partial class MainWindow : Window
