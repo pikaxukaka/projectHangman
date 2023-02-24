@@ -41,6 +41,7 @@ namespace projektWisielec
 
         private string currentWord;
         private List<char> correctLetters = new List<char>();
+        private List<string> guesses = new List<string>();
         private int lives = 10;
 
         public MainWindow()
@@ -87,6 +88,9 @@ namespace projektWisielec
             {
                 return;
             }
+
+            guesses.Add(input);
+            GuessesTextBlock.Text = string.Join(", \n", guesses);
 
             if (input.Length == 1)
             {
