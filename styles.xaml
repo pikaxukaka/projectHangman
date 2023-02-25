@@ -1,0 +1,164 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="Primary">#abc7ff</SolidColorBrush>
+    <SolidColorBrush x:Key="OnPrimary">#002f66</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryContainer">#04458e</SolidColorBrush>
+    <SolidColorBrush x:Key="OnPrimaryContainer">#d7e2ff</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Background">#1a1b1f</SolidColorBrush>
+    <SolidColorBrush x:Key="OnBackground">#e3e2e6</SolidColorBrush>
+    <SolidColorBrush x:Key="Surface">#1a1b1f</SolidColorBrush>
+    <SolidColorBrush x:Key="OnSurface">#e3e2e6</SolidColorBrush>
+
+    <SolidColorBrush x:Key="Outline">#8e9099</SolidColorBrush>
+    <SolidColorBrush x:Key="SurfaceVariant">#44474e</SolidColorBrush>
+    <SolidColorBrush x:Key="OnSurfaceVariant">#c4c6d0</SolidColorBrush>
+
+
+    <Style TargetType="{x:Type Grid}">
+        <Setter Property="Background" Value="{StaticResource Background}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}">
+
+        <Setter Property="Background" Value="{StaticResource Primary}" />
+        <Setter Property="Foreground" Value="{StaticResource OnPrimary}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="20" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource OnPrimaryContainer}" />
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryContainer}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource Primary}" />
+                            <Setter Property="Foreground" Value="{StaticResource OnPrimary}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="OutlineSegmentBtn">
+
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource Primary}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderBrush" Value="{StaticResource Outline}"/>
+        <Setter Property="Opacity" Value="1"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Opacity="{TemplateBinding Opacity}" CornerRadius="0,20,20,0"  BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource OnPrimaryContainer}"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryContainer}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource Primary}" />
+                            <Setter Property="Foreground" Value="{StaticResource OnPrimary}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" x:Key="OutlineSegmentInput">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource Primary}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="BorderBrush" Value="{StaticResource Outline}"/>
+        <Setter Property="Opacity" Value="1"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border Opacity="{TemplateBinding Opacity}" CornerRadius="20,0,0,20" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <TextBlock Text="{TemplateBinding Text}" VerticalAlignment="Center" Margin="16,0" Background="Transparent" Foreground="{TemplateBinding Foreground}"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource Primary}"/>
+                            <Setter Property="Background" Value="{StaticResource SurfaceVariant}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" x:Key="OutlineInput">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource Primary}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border CornerRadius="4"  BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                        <Grid>
+                            <TextBlock Text="{TemplateBinding Text}" VerticalAlignment="Center" Margin="8,4" Background="Transparent" Foreground="{TemplateBinding Foreground}"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource Primary}"/>
+                            <Setter Property="Background" Value="{StaticResource SurfaceVariant}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource OnBackground}"/>
+    </Style>
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{StaticResource OnBackground}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <Style TargetType="{x:Type Label}" x:Key="Hint">
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceVariant}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+
+</ResourceDictionary>

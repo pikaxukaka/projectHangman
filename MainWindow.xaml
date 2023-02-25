@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:projektWisielec"
         mc:Ignorable="d"
         Title="Wisielec" Height="480" Width="640">
-    <Grid Margin="8">
+    <Window.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="72" Width="auto" />
             <ColumnDefinition Width="*" />
@@ -25,18 +35,14 @@
 
         <StackPanel Grid.Column="0" Grid.Row="3" Margin="8">
 
-            <DockPanel>
-                <Label Content="Lives: " />
-                <TextBox x:Name="TotalLives" Text="0" VerticalAlignment="Center"
-                    HorizontalAlignment="Right" />
-            </DockPanel>
-            <DockPanel>
-                <Label Content="Random letters: " Grid.Row="1" />
-                <CheckBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"
-                    HorizontalAlignment="Right" />
-            </DockPanel>
-
-
+            <Label Content="Total lives: "/>
+            <TextBox x:Name="TotalLives" Text="10"               
+                Style="{StaticResource OutlineInput}"  />
+            <Label Content="Random letters: " Grid.Row="1"/>
+            <TextBox x:Name="RandomLetters" Text="0"                
+                Style="{StaticResource OutlineInput}"  />
+            <Label Style="{StaticResource Hint}" Content="{Binding ElementName=RandomLetters, Path=Text}" ContentStringFormat="Each {0} guess random letter will appear"/>
+            <Label Style="{StaticResource Hint}" Content="0 - no random letters"/>
         </StackPanel>
 
         <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" FontStyle="Normal" FontWeight="Normal" FontSize="24"><Run/><LineBreak/><Run/>
@@ -47,8 +53,8 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="InputTextBox" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Padding="11" Height="40"/>
-            <Button x:Name="GuessButton" Content="Check" MinWidth="72" Click="GuessButton_Click" Grid.Row="0" Grid.Column="1" Padding="12,0" />
+            <TextBox Style="{StaticResource OutlineSegmentInput}" x:Name="InputTextBox" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Padding="11" Height="40" IsEnabled="False"/>
+            <Button Style="{StaticResource OutlineSegmentBtn}" x:Name="GuessButton" Content="Check" MinWidth="72" Click="GuessButton_Click" Grid.Row="0" Grid.Column="1" Padding="12,0" IsEnabled="False"/>
         </Grid>
 
         <Separator Grid.Column="1" Grid.Row="2" Margin="8"/>
@@ -68,9 +74,8 @@
             <Label Content="Guesses:" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
             <Image x:Name="HangmanImage" Grid.Column="0" Grid.Row="1" Source="/assets/lives0.png" />
-            <TextBlock x:Name="GuessesTextBlock"  HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="1"/>
-          </Grid> 
+            <TextBlock x:Name="GuessesTextBlock"  HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1"/>
+        </Grid>
 
     </Grid>
-
 </Window>

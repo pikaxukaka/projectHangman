@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Media;
 
 namespace projektWisielec
 {
@@ -18,18 +20,13 @@ namespace projektWisielec
             - add random letter (from word) to correctLetters
             - update WordTextBlock
             - reset counter
+    - not allow to input same guess twice
 
     DONE: 
-    - "Bot" btn: random word from preset
-    - "2 Players" btn: new dialog with prompt to enter word
-      - Input dialog
-    - "reset" btn: reset game
-    - Add more words to preset
-    - "GuessesTextBlock" show all guesses (add each guess to textBlock)
-    - Add images of hangman
-    - Change image of hangman depending on lives
+
     
     SUGGESTIONS:
+
       
     */
     public partial class MainWindow : Window
@@ -77,7 +74,12 @@ namespace projektWisielec
         
         private void StartGame(string word)
         {
-            currentWord = word;
+            GuessButton.IsEnabled = true;
+            InputTextBox.IsEnabled = true;
+            guesses.Clear();
+            GuessesTextBlock.Text = "";
+
+            currentWord = word.ToUpper();
             WordTextBlock.Text = "";
             int count = 0;
             foreach (char letter in currentWord) {
@@ -93,20 +95,19 @@ namespace projektWisielec
 
         private void GuessButton_Click(object sender, RoutedEventArgs e)
         {
-            string input = InputTextBox.Text.Trim().ToLower();
+            string input = InputTextBox.Text.Trim().ToUpper();
+            Brush isCorrect = Brushes.Red;
 
             if (string.IsNullOrEmpty(input))
             {
                 return;
             }
 
-            guesses.Add(input);
-            GuessesTextBlock.Text = string.Join(", \n", guesses);
-
             if (input.Length == 1)
             {
                 if (currentWord.Contains(input[0]))
                 {
+                    isCorrect = Brushes.Green;
                     correctLetters.Add(input[0]);
                     UpdateWordTextBlock();
                     
@@ -131,6 +132,7 @@ namespace projektWisielec
             {
                 if (currentWord == input)
                 {
+                    isCorrect = Brushes.Green;
                     WordTextBlock.Text = currentWord;
                     ShowMessage("You won!");
                     Restart();
@@ -146,6 +148,13 @@ namespace projektWisielec
                     }
                 }
             }
+
+            guesses.Add(input);
+
+            Run run = new Run() { Foreground = isCorrect };
+            run.SetValue(Run.TextProperty, input);
+            GuessesTextBlock.Inlines.Add(run);
+            GuessesTextBlock.Inlines.Add(new LineBreak());
 
             InputTextBox.Clear();
         }
@@ -211,7 +220,7 @@ namespace projektWisielec
         private void InputWord(object sender, RoutedEventArgs e) {
             InputDialog dialog = new InputDialog("Enter word to guess:");
             if (dialog.ShowDialog() == true) {
-                string word = dialog.Result.Trim().ToLower();
+                string word = dialog.Result.Trim().ToUpper();
                 StartGame(word);
             }
             else {
