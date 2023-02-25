@@ -20,10 +20,9 @@ namespace projektWisielec
             - add random letter (from word) to correctLetters
             - update WordTextBlock
             - reset counter
-    - not allow to input same guess twice
 
     DONE: 
-
+    - not allow to input same guess twice -> but fix bug
     
     SUGGESTIONS:
 
@@ -149,14 +148,16 @@ namespace projektWisielec
                 }
             }
 
-            guesses.Add(input);
+            if (!guesses.Contains(input))
+            {
+                guesses.Add(input);
+                Run run = new Run() { Foreground = isCorrect };
+                run.SetValue(Run.TextProperty, input);
+                GuessesTextBlock.Inlines.Add(run);
+                GuessesTextBlock.Inlines.Add(new LineBreak());
+            }
 
-            Run run = new Run() { Foreground = isCorrect };
-            run.SetValue(Run.TextProperty, input);
-            GuessesTextBlock.Inlines.Add(run);
-            GuessesTextBlock.Inlines.Add(new LineBreak());
-
-            InputTextBox.Clear();
+            InputTextBox.Clear(); 
         }
 
         private void UpdateWordTextBlock()
