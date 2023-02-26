@@ -80,7 +80,6 @@ namespace projektWisielec {
             WordTextBlock.Text += $" ({count})";
 
             correctLetters.Clear();
-            lives = 10;
             UpdateResults();
         }
 
@@ -188,6 +187,7 @@ namespace projektWisielec {
 
         private void Restart() {
             StartGame(words[new Random().Next(words.Count)]);
+
         }
 
         private void InputWord(object sender, RoutedEventArgs e) {
@@ -213,6 +213,17 @@ namespace projektWisielec {
         private void LivesUpdate(object sender, System.Windows.Controls.TextChangedEventArgs e) {
             // lives 1-10 & type number
             // else: 10
+            if (int.TryParse(TotalLives.Text, out int totalLives))
+            {
+                if (totalLives >= 1 && totalLives <= 10)
+                {
+                    lives = totalLives;
+                }
+                else
+                {
+                    lives = 10;
+                }
+            }
         }
 
         private void RandomUpdate(object sender, System.Windows.Controls.TextChangedEventArgs e) {
