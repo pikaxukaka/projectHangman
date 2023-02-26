@@ -37,10 +37,10 @@
 
             <Label Content="Total lives: "/>
             <TextBox x:Name="TotalLives" Text="10"               
-                Style="{StaticResource OutlineInput}"  />
+                Style="{StaticResource OutlineInput}" TextChanged="LivesUpdate"  />
             <Label Content="Random letters: " Grid.Row="1"/>
             <TextBox x:Name="RandomLetters" Text="0"                
-                Style="{StaticResource OutlineInput}"  />
+                Style="{StaticResource OutlineInput}" TextChanged="RandomUpdate"  />
             <Label Style="{StaticResource Hint}" Content="{Binding ElementName=RandomLetters, Path=Text}" ContentStringFormat="Each {0} guess random letter will appear"/>
             <Label Style="{StaticResource Hint}" Content="0 - no random letters"/>
         </StackPanel>

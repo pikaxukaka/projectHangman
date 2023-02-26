@@ -5,8 +5,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 
-namespace projektWisielec
-{
+namespace projektWisielec {
 
     /*
     TODO:
@@ -28,8 +27,7 @@ namespace projektWisielec
 
       
     */
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window {
         private List<string> words = new List<string>()
         {
             "abstrakcja",
@@ -46,33 +44,27 @@ namespace projektWisielec
         private List<char> correctLetters = new List<char>();
         private List<string> guesses = new List<string>();
         public int lives { get; private set; } = 11;
-        
-        public MainWindow()
-        {
+
+        public MainWindow() {
             InitializeComponent();
             this.DataContext = this;
 
 
-            try
-            {
+            try {
                 string fileName = "words.txt";
-                using (StreamReader sr = new StreamReader(fileName))
-                {
+                using (StreamReader sr = new StreamReader(fileName)) {
                     string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
+                    while ((line = sr.ReadLine()) != null) {
                         words.Add(line.Trim());
                     }
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBox.Show($"File read error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
-        private void StartGame(string word)
-        {
+
+        private void StartGame(string word) {
             GuessButton.IsEnabled = true;
             InputTextBox.IsEnabled = true;
             guesses.Clear();
@@ -92,85 +84,72 @@ namespace projektWisielec
             UpdateResults();
         }
 
-        private void GuessButton_Click(object sender, RoutedEventArgs e)
-        {
+        private void GuessButton_Click(object sender, RoutedEventArgs e) {
             string input = InputTextBox.Text.Trim().ToUpper();
             Brush isCorrect = Brushes.Red;
 
-            if (string.IsNullOrEmpty(input))
-            {
+            if (guesses.Contains(input) || string.IsNullOrEmpty(input)) {
                 return;
             }
 
-            if (input.Length == 1)
-            {
-                if (currentWord.Contains(input[0]))
-                {
-                    isCorrect = Brushes.Green;
+            if (input.Length == 1) {
+                if (currentWord.Contains(input[0])) {
                     correctLetters.Add(input[0]);
+                    UpdateGuessesTextBlock(input, Brushes.Green);
                     UpdateWordTextBlock();
-                    
-                    if (IsGameWon())
-                    {
+
+                    if (IsGameWon()) {
                         ShowMessage("You won!");
                         Restart();
                     }
                 }
-                else
-                {
+                else {
                     lives--;
+                    UpdateGuessesTextBlock(input, Brushes.Red);
                     UpdateResults();
-                    if (lives == 0)
-                    {
+                    
+                    if (lives == 0) {
                         ShowMessage("You lost!\nWord: " + currentWord);
                         Restart();
                     }
                 }
             }
-            else
-            {
-                if (currentWord == input)
-                {
-                    isCorrect = Brushes.Green;
+            else {
+                if (currentWord == input) {
+                    UpdateGuessesTextBlock(input, Brushes.Green);
                     WordTextBlock.Text = currentWord;
                     ShowMessage("You won!");
                     Restart();
                 }
-                else
-                {
+                else {
                     lives--;
+                    UpdateGuessesTextBlock(input, Brushes.Red);
                     UpdateResults();
-                    if (lives == 0)
-                    {
+                    if (lives == 0) {
                         ShowMessage("You lost!\nWord: " + currentWord);
                         Restart();
                     }
                 }
             }
 
-            if (!guesses.Contains(input))
-            {
-                guesses.Add(input);
-                Run run = new Run() { Foreground = isCorrect };
-                run.SetValue(Run.TextProperty, input);
-                GuessesTextBlock.Inlines.Add(run);
-                GuessesTextBlock.Inlines.Add(new LineBreak());
-            }
-
-            InputTextBox.Clear(); 
+            InputTextBox.Clear();
         }
 
-        private void UpdateWordTextBlock()
-        {
+        private void UpdateGuessesTextBlock(string text, Brush color) {
+            guesses.Add(text);
+            Run run = new Run() { Foreground = color };
+            run.SetValue(Run.TextProperty, text);
+            GuessesTextBlock.Inlines.Add(run);
+            GuessesTextBlock.Inlines.Add(new LineBreak());
+        }
+
+        private void UpdateWordTextBlock() {
             char[] word = new char[currentWord.Length];
-            for (int i = 0; i < currentWord.Length; i++)
-            {
-                if (correctLetters.Contains(currentWord[i]) || currentWord[i] == ' ')
-                {
+            for (int i = 0; i < currentWord.Length; i++) {
+                if (correctLetters.Contains(currentWord[i]) || currentWord[i] == ' ') {
                     word[i] = currentWord[i];
                 }
-                else
-                {
+                else {
                     word[i] = '_';
                 }
             }
@@ -185,53 +164,63 @@ namespace projektWisielec
 
         }
 
-        private bool IsGameWon()
-        {
-            foreach (char c in currentWord)
-            {
-                if (!correctLetters.Contains(c) && c != ' ')
-                {
+        private bool IsGameWon() {
+            foreach (char c in currentWord) {
+                if (!correctLetters.Contains(c) && c != ' ') {
                     return false;
                 }
             }
             return true;
         }
 
-        private void UpdateResults()
-        {
+        private void UpdateResults() {
             LivesTextBlock.Content = $"Lives: {lives}";
             HangmanImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri($"pack://application:,,,/assets/lives{lives}.png"));
         }
 
-        private void ShowMessage(string message)
-        {
+        private void ShowMessage(string message) {
             MessageBox.Show(message, "Game Over", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void RestartClick(object sender, RoutedEventArgs e)
-        {
+        private void RestartClick(object sender, RoutedEventArgs e) {
             Restart();
         }
 
-        private void Restart()
-        {
+        private void Restart() {
             StartGame(words[new Random().Next(words.Count)]);
         }
-        
+
         private void InputWord(object sender, RoutedEventArgs e) {
             InputDialog dialog = new InputDialog("Enter word to guess:");
+            
             if (dialog.ShowDialog() == true) {
                 string word = dialog.Result.Trim().ToUpper();
-                StartGame(word);
+                
+                if (word.Length > 0) {
+                    StartGame(word);
+                    return;
+                }
             }
-            else {
-                MessageBox.Show("You didn't enter any text!\nGuess: random word", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                RandomWord(sender, e);
-            }
+            
+            MessageBox.Show("You didn't enter any text!\nGuess: random word", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            RandomWord(sender, e);
         }
 
         private void RandomWord(object sender, RoutedEventArgs e) {
             StartGame(words[new Random().Next(words.Count)]);
+        }
+
+        private void LivesUpdate(object sender, System.Windows.Controls.TextChangedEventArgs e) {
+            // lives 1-10 & type number
+            // else: 10
+        }
+
+        private void RandomUpdate(object sender, System.Windows.Controls.TextChangedEventArgs e) {
+            // random 0-10 & type number, else: 0
+            //   if: 0
+            //     no radnom letter
+            //   else: 
+            //     each X guess add random letter
         }
     }
 }
