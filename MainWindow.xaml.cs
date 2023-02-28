@@ -43,6 +43,7 @@ namespace projektWisielec {
         private string currentWord;
         private List<char> correctLetters = new List<char>();
         private List<string> guesses = new List<string>();
+        private int totalLives = 11;
         public int lives { get; private set; } = 11;
 
         public MainWindow() {
@@ -69,6 +70,7 @@ namespace projektWisielec {
             InputTextBox.IsEnabled = true;
             guesses.Clear();
             GuessesTextBlock.Text = "";
+            lives = totalLives;
 
             currentWord = word.ToUpper();
             WordTextBlock.Text = "";
@@ -85,8 +87,6 @@ namespace projektWisielec {
 
         private void GuessButton_Click(object sender, RoutedEventArgs e) {
             string input = InputTextBox.Text.Trim().ToUpper();
-            Brush isCorrect = Brushes.Red;
-
             if (guesses.Contains(input) || string.IsNullOrEmpty(input)) {
                 return;
             }
@@ -213,15 +213,15 @@ namespace projektWisielec {
         private void LivesUpdate(object sender, System.Windows.Controls.TextChangedEventArgs e) {
             // lives 1-10 & type number
             // else: 10
-            if (int.TryParse(TotalLives.Text, out int totalLives))
+            if (int.TryParse(TotalLives.Text, out int totalLivesInput))
             {
-                if (totalLives >= 1 && totalLives <= 10)
+                if (totalLivesInput >= 1 && totalLivesInput <= 10)
                 {
-                    lives = totalLives;
+                    totalLives = totalLivesInput;
                 }
                 else
                 {
-                    lives = 10;
+                    totalLives = 10;
                 }
             }
         }
