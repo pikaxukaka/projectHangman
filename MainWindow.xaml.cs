@@ -9,23 +9,9 @@ namespace projektWisielec {
 
     /*
     TODO:
-    - add simple setings like:
-      - *number1* of total lives (1-10)
-        - set lives to total lives in the beginning of the game
-      - random letter from word each *number2* guesses 
-        - add input for *number2* (xaml)
-        - add counter to GuessButton_Click()
-          - if counter == *number2*
-            - add random letter (from word) to correctLetters
-            - update WordTextBlock
-            - reset counter
-
-    DONE: 
-    - not allow to input same guess twice -> but fix bug
     
     SUGGESTIONS:
-
-      
+          
     */
     public partial class MainWindow : Window {
         private List<string> words = new List<string>()
@@ -43,7 +29,10 @@ namespace projektWisielec {
         private string currentWord;
         private List<char> correctLetters = new List<char>();
         private List<string> guesses = new List<string>();
+
         private int totalLives = 11;
+        private int guessesCount = 0;
+        public int randomLetter { get; private set; } = 0;
         public int lives { get; private set; } = 11;
 
         public MainWindow() {
@@ -85,7 +74,38 @@ namespace projektWisielec {
             UpdateResults();
         }
 
+        private void RandomLetter(string input) {
+
+            List<char> letters = new List<char>();
+            foreach (char letter in currentWord) {
+                if (!letters.Contains(letter) && letter != ' ') {
+                    letters.Add(letter);
+                }
+            }
+
+            if (randomLetter != 0 && correctLetters.Count < letters.Count) {
+                if (guessesCount++ % randomLetter == 0) {
+                    Random random = new Random();
+                    int index = random.Next(0, currentWord.Length);
+
+                    while (correctLetters.Contains(currentWord[index]) || currentWord[index] == ' ' || currentWord[index] == input[0]) {
+                        index = random.Next(0, currentWord.Length);
+                    }
+
+                    correctLetters.Add(currentWord[index]);
+                    if (IsGameWon()) {
+                        correctLetters.Remove(currentWord[index]);
+                    }
+                    else {
+                        UpdateGuessesTextBlock(currentWord[index].ToString(), Brushes.Cyan);
+                        UpdateWordTextBlock();
+                    }
+                }
+            }
+        }
+
         private void GuessButton_Click(object sender, RoutedEventArgs e) {
+
             string input = InputTextBox.Text.Trim().ToUpper();
             if (guesses.Contains(input) || string.IsNullOrEmpty(input)) {
                 return;
@@ -101,16 +121,20 @@ namespace projektWisielec {
                         ShowMessage("You won!");
                         Restart();
                     }
+                    else
+                        RandomLetter(input);
                 }
                 else {
                     lives--;
                     UpdateGuessesTextBlock(input, Brushes.Red);
                     UpdateResults();
-                    
+
                     if (lives == 0) {
                         ShowMessage("You lost!\nWord: " + currentWord);
                         Restart();
                     }
+                    else
+                        RandomLetter(input);
                 }
             }
             else {
@@ -128,6 +152,8 @@ namespace projektWisielec {
                         ShowMessage("You lost!\nWord: " + currentWord);
                         Restart();
                     }
+                    else
+                        RandomLetter(input);
                 }
             }
 
@@ -192,16 +218,16 @@ namespace projektWisielec {
 
         private void InputWord(object sender, RoutedEventArgs e) {
             InputDialog dialog = new InputDialog("Enter word to guess:");
-            
+
             if (dialog.ShowDialog() == true) {
                 string word = dialog.Result.Trim().ToUpper();
-                
+
                 if (word.Length > 0) {
                     StartGame(word);
                     return;
                 }
             }
-            
+
             MessageBox.Show("You didn't enter any text!\nGuess: random word", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             RandomWord(sender, e);
         }
@@ -211,27 +237,26 @@ namespace projektWisielec {
         }
 
         private void LivesUpdate(object sender, System.Windows.Controls.TextChangedEventArgs e) {
-            // lives 1-10 & type number
-            // else: 10
-            if (int.TryParse(TotalLives.Text, out int totalLivesInput))
-            {
-                if (totalLivesInput >= 1 && totalLivesInput <= 10)
-                {
+            if (int.TryParse(TotalLives.Text, out int totalLivesInput)) {
+                if (totalLivesInput >= 1 && totalLivesInput <= 10) {
                     totalLives = totalLivesInput;
                 }
-                else
-                {
+                else {
                     totalLives = 10;
                 }
             }
         }
 
         private void RandomUpdate(object sender, System.Windows.Controls.TextChangedEventArgs e) {
-            // random 0-10 & type number, else: 0
-            //   if: 0
-            //     no radnom letter
-            //   else: 
-            //     each X guess add random letter
+
+            if (int.TryParse(RandomLetters.Text, out int RandomLettersInput)) {
+                if (RandomLettersInput >= 0 && RandomLettersInput <= 10) {
+                    randomLetter = RandomLettersInput;
+                }
+                else {
+                    randomLetter = 0;
+                }
+            }
         }
     }
 }
