@@ -7,12 +7,6 @@ using System.Windows.Media;
 
 namespace projektWisielec {
 
-    /*
-    TODO:
-    
-    SUGGESTIONS:
-          
-    */
     public partial class MainWindow : Window {
         private List<string> words = new List<string>()
         {
@@ -35,23 +29,13 @@ namespace projektWisielec {
         public int randomLetter { get; private set; } = 0;
         public int lives { get; private set; } = 11;
 
+        private string lang { get; set; } = "pl";
+
         public MainWindow() {
             InitializeComponent();
             this.DataContext = this;
 
-
-            try {
-                string fileName = "words.txt";
-                using (StreamReader sr = new StreamReader(fileName)) {
-                    string line;
-                    while ((line = sr.ReadLine()) != null) {
-                        words.Add(line.Trim());
-                    }
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show($"File read error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            LoadWords();
         }
 
         private void StartGame(string word) {
@@ -73,7 +57,22 @@ namespace projektWisielec {
             correctLetters.Clear();
             UpdateResults();
         }
-
+        
+        private void LoadWords() {
+            try {
+                string fileName = "words-" + lang + ".txt";
+                using (StreamReader sr = new StreamReader(fileName)) {
+                    words.Clear();
+                    string line;
+                    while ((line = sr.ReadLine()) != null) {
+                        words.Add(line.Trim());
+                    }
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"File read error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void RandomLetter(string input) {
 
             List<char> letters = new List<char>();
@@ -257,6 +256,45 @@ namespace projektWisielec {
                     randomLetter = 0;
                 }
             }
+        }
+
+        private void Credits(object sender, RoutedEventArgs e) {
+            MessageBox.Show("Authors: \n\nPatryk Kozaczkiewicz\nMateusz Kowalski", "Credits", MessageBoxButton.OK);
+        }
+
+        private void LangBtnClick(object sender, RoutedEventArgs e) {
+            LangPlSelected.Visibility = Visibility.Hidden;
+            LangEnSelected.Visibility = Visibility.Hidden;
+            LangEsSelected.Visibility = Visibility.Hidden;
+            LangGrSelected.Visibility = Visibility.Hidden;
+
+            LangPl.Opacity = 1;
+            LangEn.Opacity = 1;
+            LangEs.Opacity = 1;
+            LangGr.Opacity = 1;
+
+            if (LangPl.IsChecked == true) {
+                lang = "pl";
+                LangPlSelected.Visibility = Visibility.Visible;
+                LangPl.Opacity = 0.75;
+            }
+            else if (LangEn.IsChecked == true) {
+                lang = "en";
+                LangEnSelected.Visibility = Visibility.Visible;
+                LangPl.Opacity = 0.75;
+            }
+            else if (LangEs.IsChecked == true) {
+                lang = "es";
+                LangEsSelected.Visibility = Visibility.Visible;
+                LangPl.Opacity = 0.75;
+            }
+            else if (LangGr.IsChecked == true) {
+                lang = "gr";
+                LangGrSelected.Visibility = Visibility.Visible;
+                LangPl.Opacity = 0.75;
+            }
+
+            LoadWords();
         }
     }
 }

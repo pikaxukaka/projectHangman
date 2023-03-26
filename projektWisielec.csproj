@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="assets\flag-en.png" />
+    <None Remove="assets\flag-es.png" />
+    <None Remove="assets\flag-gr.png" />
+    <None Remove="assets\flag-pl.png" />
     <None Remove="assets\lives0.png" />
     <None Remove="assets\lives1.png" />
     <None Remove="assets\lives10.png" />
@@ -20,10 +24,19 @@
     <None Remove="assets\lives7.png" />
     <None Remove="assets\lives8.png" />
     <None Remove="assets\lives9.png" />
+    <None Remove="assets\radioButtonOverlay.png" />
     <None Remove="state11.png" />
+    <None Remove="words-en.txt" />
+    <None Remove="words-es.txt" />
+    <None Remove="words-gr.txt" />
+    <None Remove="words-pl.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="assets\flag-en.png" />
+    <Resource Include="assets\flag-es.png" />
+    <Resource Include="assets\flag-gr.png" />
+    <Resource Include="assets\flag-pl.png" />
     <Resource Include="assets\lives0.png" />
     <Resource Include="assets\lives1.png" />
     <Resource Include="assets\lives10.png" />
@@ -35,6 +48,19 @@
     <Resource Include="assets\lives7.png" />
     <Resource Include="assets\lives8.png" />
     <Resource Include="assets\lives9.png" />
+    <Resource Include="assets\radioButtonOverlay.png" />
+    <Content Include="words-en.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="words-es.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="words-gr.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="words-pl.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

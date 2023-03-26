@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projektWisielec"
         mc:Ignorable="d"
-        Title="Wisielec" Height="480" Width="640">
+        Title="Wisielec" Height="500" Width="640">
     <Window.Resources>
 
         <ResourceDictionary>
@@ -33,17 +33,48 @@
         <Button Grid.Column="0" Grid.Row="1" Margin="8" Padding="12,0" Click="InputWord">Input</Button>
         <Separator Grid.Column="0" Grid.Row="2" Margin="8" />
 
-        <StackPanel Grid.Column="0" Grid.Row="3" Margin="8">
-
-            <Label Content="Total lives: "/>
-            <TextBox x:Name="TotalLives" Text="10"               
+        <DockPanel Grid.Column="0" Grid.Row="3" Margin="8" VerticalAlignment="Stretch" >
+            <StackPanel DockPanel.Dock="Top">
+                <Label Content="Total lives: "/>
+                <TextBox x:Name="TotalLives" Text="10"               
                 Style="{StaticResource OutlineInput}" TextChanged="LivesUpdate"  />
-            <Label Content="Random letters: " Grid.Row="1"/>
-            <TextBox x:Name="RandomLetters" Text="0"                
+                <Label Content="Random letters: " Grid.Row="1"/>
+                <TextBox x:Name="RandomLetters" Text="0"                
                 Style="{StaticResource OutlineInput}" TextChanged="RandomUpdate"  />
-            <Label Style="{StaticResource Hint}" Content="{Binding ElementName=RandomLetters, Path=Text}" ContentStringFormat="Each {0} guess random letter will appear"/>
-            <Label Style="{StaticResource Hint}" Content="0 - no random letters"/>
-        </StackPanel>
+                <Label Style="{StaticResource Hint}" Content="{Binding ElementName=RandomLetters, Path=Text}" ContentStringFormat="Each {0} guess random letter will appear"/>
+                <Label Style="{StaticResource Hint}" Content="0 - no random letters"/>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Bottom" >
+                <Separator Margin="8"/>
+                <Grid x:Name="LangGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Grid.Column="0" Margin="8" Width="40" Height="40" x:Name="LangPl" GroupName="Lang" Style="{StaticResource LangBtn}" Click="LangBtnClick" IsChecked="True" >
+                        <Image Source="/assets/flag-pl.png" />
+                    </RadioButton>
+                    <RadioButton Grid.Column="1" x:Name="LangEn" GroupName="Lang" Margin="8" Style="{StaticResource LangBtn}"  Width="40" Height="40" Click="LangBtnClick">
+                        <Image Source="/assets/flag-en.png" />
+                    </RadioButton>
+                    <RadioButton Grid.Column="2" x:Name="LangEs" GroupName="Lang" Margin="8" Style="{StaticResource LangBtn}"  Width="40" Height="40" Click="LangBtnClick">
+                        <Image Source="/assets/flag-es.png" />
+                    </RadioButton>
+                    <RadioButton Grid.Column="3" x:Name="LangGr" GroupName="Lang" Margin="8" Style="{StaticResource LangBtn}"  Width="40" Height="40" Click="LangBtnClick">
+                        <Image Source="/assets/flag-gr.png" />
+                    </RadioButton>
+
+                    <Image x:Name="LangPlSelected" Grid.Column="0" Margin="8" Width="40" Height="40"  Source="/assets/radioButtonOverlay.png"/>
+                    <Image x:Name="LangEnSelected" Grid.Column="1" Margin="8" Width="40" Height="40"  Source="/assets/radioButtonOverlay.png" Visibility="Hidden"/>
+                    <Image x:Name="LangEsSelected" Grid.Column="2" Margin="8" Width="40" Height="40"  Source="/assets/radioButtonOverlay.png" Visibility="Hidden"/>
+                    <Image x:Name="LangGrSelected" Grid.Column="3" Margin="8" Width="40" Height="40"  Source="/assets/radioButtonOverlay.png" Visibility="Hidden"/>
+                </Grid>
+                <Button Content="Credits" Click="Credits" Height="40" Margin="8"/>
+            </StackPanel>
+        </DockPanel>
 
         <TextBlock x:Name="WordTextBlock" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Margin="8" FontStretch="Normal" FontStyle="Normal" FontWeight="Normal" FontSize="24"><Run/><LineBreak/><Run/>
         </TextBlock>
